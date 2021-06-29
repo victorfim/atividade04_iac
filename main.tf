@@ -10,8 +10,8 @@ terraform {
 }
 
 provider "aws" {
-  access_key = "AKIAXTQSVVA4WK2KG7DZ"
-  secret_key = "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"
+  access_key = "AKIAXTQSVVA4SMCHDSOW"
+  secret_key = "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"
   region  = "ap-southeast-1"
 }
 
@@ -22,7 +22,7 @@ resource "aws_instance" "app_server" {
   security_groups = ["${aws_security_group.allow_rdp.name}"]
 
   tags = {
-    Name = "Atividade04_Victor_Terraform"
+    Name = "Victor_Atividade04_Terraform"
   }
 }
 
@@ -36,7 +36,33 @@ resource "aws_security_group" "allow_rdp" {
     protocol  = "tcp"
 
     cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    from_port = 5986
+    to_port   = 5986
+    protocol  = "tcp"
+
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = -1
+
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
 }
-
